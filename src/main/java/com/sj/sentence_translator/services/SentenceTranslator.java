@@ -1,16 +1,19 @@
 package com.sj.sentence_translator.services;
 
+import com.sj.sentence_translator.InMemoryDatabase;
 import com.sj.sentence_translator.exceptions.SentenceTranslationException;
 import com.sj.sentence_translator.exceptions.WordTranslationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SentenceTranslator {
+    private static final Logger logger = LogManager.getLogger(InMemoryDatabase.class);
+    private final Dictionary dictionary;
 
-    private final Dictionary jsonDictionary;
-
-    public SentenceTranslator(Dictionary jsonDictionary) {
-        this.jsonDictionary = jsonDictionary;
+    public SentenceTranslator(Dictionary dictionary) {
+        this.dictionary = dictionary;
     }
 
     public String translate(String sentence) throws SentenceTranslationException {
@@ -19,12 +22,12 @@ public class SentenceTranslator {
             StringBuilder translatedSentence = new StringBuilder();
 
             for (String word : words) {
-                translatedSentence.append(jsonDictionary.getTranslation(word)).append(" ");
+                translatedSentence.append(dictionary.getTranslation(word)).append(" ");
             }
 
             return translatedSentence.toString().trim();
         } catch (WordTranslationException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         throw new SentenceTranslationException("There was a problem during translating sentence");
     }
