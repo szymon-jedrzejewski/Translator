@@ -1,4 +1,4 @@
-package com.sj.sentence_translator.model;
+package com.sj.sentence_translator.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
