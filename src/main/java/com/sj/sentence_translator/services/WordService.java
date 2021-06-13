@@ -2,14 +2,17 @@ package com.sj.sentence_translator.services;
 
 import com.sj.sentence_translator.models.Word;
 import com.sj.sentence_translator.repositories.WordRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class WordCounter {
+public class WordService {
 
     private WordRepository repository;
 
-    public WordCounter(WordRepository repository) {
+    public WordService(WordRepository repository) {
         this.repository = repository;
     }
 
@@ -25,5 +28,9 @@ public class WordCounter {
                 repository.save(newWord);
             }
         }
+    }
+
+    public List<Word> getWordsRanking() {
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "numberOfTranslations"));
     }
 }
