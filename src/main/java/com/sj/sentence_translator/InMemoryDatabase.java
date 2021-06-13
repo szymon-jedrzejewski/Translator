@@ -20,7 +20,7 @@ public class InMemoryDatabase {
         try {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(new FileReader("src/main/resources/config/in_memory_db_config.json"));
-            filePath = (String)json.get("filePath");
+            filePath = (String) json.get("filePath");
             readFile();
         } catch (ParseException | IOException e) {
             logger.error(e.getMessage());
@@ -30,7 +30,7 @@ public class InMemoryDatabase {
 
     public void readFile() {
         try {
-            content =  new String(Files.readAllBytes(Paths.get(filePath)));
+            content = new String(Files.readAllBytes(Paths.get(filePath)));
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
