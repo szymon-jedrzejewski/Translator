@@ -16,13 +16,17 @@ public class SentenceTranslator {
         this.dictionary = dictionary;
     }
 
-    public String translate(String sentence) throws SentenceTranslationException {
+    public String translate(String isQuote, String sentence) throws SentenceTranslationException {
         try {
             String[] words = sentence.split(" ");
             StringBuilder translatedSentence = new StringBuilder();
 
             for (String word : words) {
-                translatedSentence.append(dictionary.getTranslation(word)).append(" ");
+                if (isQuote.equals("true")) {
+                    translatedSentence.append("'").append(dictionary.getTranslation(word)).append("' ");
+                } else {
+                    translatedSentence.append(dictionary.getTranslation(word)).append(" ");
+                }
             }
 
             return translatedSentence.toString().trim();
