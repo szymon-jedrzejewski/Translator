@@ -27,6 +27,6 @@ public class JsonDictionary implements Dictionary {
         } catch (ParseException e) {
             logger.error(e.getMessage());
         }
-        throw new WordTranslationException("Problem during parsing json");
+        throw new WordTranslationException("Problem during translating word");
     }
 }
